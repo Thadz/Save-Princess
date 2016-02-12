@@ -16,6 +16,8 @@
 * A ThreeDimCharArray is a std::vector<std::vector<std::vector>>>.
 */
 
+// To compile use ``g++ -std=c++11 Problem5.cpp -Wall``
+
 #include <algorithm>
 #include <iostream>
 #include "Problem5.hpp"
