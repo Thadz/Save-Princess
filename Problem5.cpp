@@ -16,38 +16,81 @@
 * A ThreeDimCharArray is a std::vector<std::vector<std::vector>>>.
 */
 
-// #include "Problem5.hpp"
+#include "Problem5.hpp"
+#include <iostream>
 
-// Problem5::Solution Problem5::savePrincess(ThreeDimCharArray grid)
-// {
-//   //Please implement this, it only returns an empty Solution object.
-//   //Please delete this, its just an example of the structure of the grid.
-//   char simple_grid[3][3][3] =
-//     {
-//       {
-//         { '1', '.', '.' },
-//         { 'o', 'o', '.' },
-//         { '.', '.', '.' }
-//       },
-//       {
-//         { 'o', 'o', 'o' },
-//         { '.', '.', 'o' },
-//         { '.', 'o', 'o' }
-//       },
-//       {
-//         { 'o', 'o', 'o' },
-//         { 'o', '.', '.' },
-//         { 'o', '.', '2' }
-//       }
-//     };
-//   Solution sn;
-//   sn.amountOfTime = 0;
-//   sn.directions = std::vector<Direction>();
-//   sn.isPossible = true;
-//   return sn;
-// }
+Problem5::Solution Problem5::savePrincess(const ThreeDimCharArray grid)
+{
+  std::shared_ptr<Solution> p_solution(new Solution);
+  p_solution.get()->amountOfTime = 0u;
+  p_solution.get()->directions = std::vector<Direction>();
+  p_solution.get()->isPossible = false;
+
+  auto princePosition = getFigurePosition(Figure::PRINCE, grid);
+  auto princessPosition = getFigurePosition(Figure::PRINCESS, grid);
+
+  // If princess stands above prince, then it is impossible
+  if (std::get<0>(princessPosition) < std::get<0>(princePosition)) {
+    return *p_solution.get();
+  }
+
+  return *p_solution.get();
+}
+
+std::vector<std::shared_ptr<Problem5::Solution>>
+Problem5::savePrincessRecursion(const Position currentPrincePosition,
+                                std::shared_ptr<Problem5::Solution> currentSolution,
+                                const ThreeDimCharArray grid)
+{
+  // base cases
+  
+  // induction
+  // auto solutions = std::vector<Solution>();
+
+  return std::vector<std::shared_ptr<Solution>>();
+}
+
+Problem5::Position Problem5::getFigurePosition(Figure figure,
+                                               const ThreeDimCharArray grid)
+{
+  // assuming grid is well-formed
+  for (auto i = 0; i != grid.size(); ++i)
+  {
+    for (auto j = 0; j != grid.at(0).size(); ++j)
+    {
+      for (auto k = 0; k != grid.at(0).at(0).size(); ++k)
+      {
+        if (grid.at(i).at(j).at(k) == figure)
+        {
+          return std::make_tuple(i, j, k);
+        }
+      }
+    }
+  }
+  return std::make_tuple(0, 0, 0);
+}
 
 int main()
 {
+  //Please implement this, it only returns an empty Solution object.
+  //Please delete this, its just an example of the structure of the grid.
+  Problem5::ThreeDimCharArray grid
+    {
+      {
+        { '1', '.', '.' },
+        { 'o', 'o', '.' },
+        { '.', '.', '.' }
+      },
+      {
+        { 'o', 'o', 'o' },
+        { '.', '.', 'o' },
+        { '.', 'o', 'o' }
+      },
+      {
+        { 'o', 'o', 'o' },
+        { 'o', '.', '.' },
+        { 'o', '.', '2' }
+      }
+    };
   return 0;
 }
