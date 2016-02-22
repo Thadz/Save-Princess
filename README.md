@@ -1,6 +1,6 @@
 # Save Princess [![Build Status](https://travis-ci.org/Thadz/Save-Princess.svg?branch=master)](https://travis-ci.org/Thadz/Save-Princess)
 
-![Link Saving Zelda](/image/theme.jpg)
+![Link Saving Zelda](image/theme.jpg)
 
 ## Features
 - algorithm library
