@@ -1,23 +1,22 @@
 #ifndef PROBLEM5_HPP
 #define PROBLEM5_HPP
 
+#include <iostream>
 #include <memory>
-#include <ostream>
 #include <tuple>
-#include <unordered_map>
 #include <vector>
 
 namespace Problem5 {
   bool _DEBUG_ = false;
-  // level, x, y
+  // level, x, y. (0, 0, 0) is at the top left corner on the up side.
   using ThreeDimCharArray = std::vector<std::vector<std::vector<char>>>;
   // level, x, y
   using Position = std::tuple<int32_t, int32_t, int32_t>;
   uint64_t TIME_UNIT = 5;
   enum Figure
   {
-    PRINCE = (char) '1', PRINCESS = (char) '2',
-    SPACE = (char) '.', COLUMN = (char) 'o'
+    PRINCE = '1', PRINCESS = '2',
+    SPACE  = '.', COLUMN = 'o'
   };
   enum Direction { EAST, WEST, SOUTH, NORTH, DOWN };
   class State
@@ -37,7 +36,8 @@ namespace Problem5 {
 
   Position getFigurePosition(const Figure figure, const ThreeDimCharArray& grid)
   {
-    // assuming grid is well-formed
+    // assuming grid is well-formed. i.e. the grid is m by n with height h.
+    // prince and princess always exist in the grid.
     for (auto i = 0; i != grid.size(); ++i)
     {
       for (auto j = 0; j != grid.at(0).size(); ++j)
@@ -51,7 +51,7 @@ namespace Problem5 {
         }
       }
     }
-    return std::make_tuple(0, 0, 0);
+    return std::make_tuple(-1, -1, -1);
   };
   inline const std::string toString(const Direction& direction)
   {
@@ -72,7 +72,7 @@ namespace Problem5 {
     auto y = std::get<2>(src.position);
     auto directions = src.directions;
     directions.push_back(Direction::EAST);
-    dest = { std::make_tuple(level, x + 1, y), directions };
+    dest = { std::make_tuple(level, x, y + 1), directions };
   };
   void moveWest(State& dest, const State& src)
   {
@@ -81,7 +81,7 @@ namespace Problem5 {
     auto y = std::get<2>(src.position);
     auto directions = src.directions;
     directions.push_back(Direction::WEST);
-    dest = { std::make_tuple(level, x - 1, y), directions };
+    dest = { std::make_tuple(level, x, y - 1), directions };
   };
   void moveNorth(State& dest, const State& src)
   {
@@ -90,7 +90,7 @@ namespace Problem5 {
     auto y = std::get<2>(src.position);
     auto directions = src.directions;
     directions.push_back(Direction::NORTH);
-    dest = { std::make_tuple(level, x, y - 1), directions };
+    dest = { std::make_tuple(level, x - 1, y), directions };
   };
   void moveSouth(State& dest, const State& src)
   {
@@ -99,7 +99,7 @@ namespace Problem5 {
     auto y = std::get<2>(src.position);
     auto directions = src.directions;
     directions.push_back(Direction::SOUTH);
-    dest = { std::make_tuple(level, x, y + 1), directions };
+    dest = { std::make_tuple(level, x + 1, y), directions };
   };
   void moveDown(State& dest, const State& src)
   {

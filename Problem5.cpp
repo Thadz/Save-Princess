@@ -27,9 +27,6 @@
 
 // To compile use ``g++ -std=c++11 Problem5.cpp -Wall``
 
-#include <algorithm>
-#include <iostream>
-
 #include "Problem5.hpp"
 
 std::shared_ptr<Problem5::Solution> Problem5::savePrincess(const ThreeDimCharArray& grid)
@@ -37,10 +34,13 @@ std::shared_ptr<Problem5::Solution> Problem5::savePrincess(const ThreeDimCharArr
   auto princePosition = getFigurePosition(Figure::PRINCE, grid);
   auto princessPosition = getFigurePosition(Figure::PRINCESS, grid);
   // assume princess is always below prince
+  auto solution = std::make_shared<Solution>();
   State state { princePosition };
   std::vector<State> states = { state };
+  // not using unordere_set because vector
+  // is usally faster with the aid of cache
   std::vector<State> rejected = {};
-  auto solution = std::make_shared<Solution>();
+  // BFS for the shortest path search.
   while (!states.empty())
   {
     auto s = states.front();
