@@ -38,11 +38,11 @@ namespace Problem5 {
   {
     // assuming grid is well-formed. i.e. the grid is m by n with height h.
     // prince and princess always exist in the grid.
-    for (auto i = 0; i != grid.size(); ++i)
+    for (uint32_t i = 0; i != grid.size(); ++i)
     {
-      for (auto j = 0; j != grid.at(0).size(); ++j)
+      for (uint32_t j = 0; j != grid.at(0).size(); ++j)
       {
-        for (auto k = 0; k != grid.at(0).at(0).size(); ++k)
+        for (uint32_t k = 0; k != grid.at(0).at(0).size(); ++k)
         {
           if (grid.at(i).at(j).at(k) == figure)
           {
@@ -51,7 +51,7 @@ namespace Problem5 {
         }
       }
     }
-    return std::make_tuple(-1, -1, -1);
+    return std::make_tuple(0, 0, 0);
   };
   inline const std::string toString(const Direction& direction)
   {
@@ -127,7 +127,7 @@ namespace Problem5 {
   std::ostream& operator<<(std::ostream& os, const Direction& direction)
   {
     return os << toString(direction);
-  }
+  };
   template<typename T>
   std::ostream& operator<<(std::ostream& os, const std::vector<T>& vector)
   {

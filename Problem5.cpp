@@ -25,14 +25,11 @@
 * A ThreeDimCharArray is a std::vector<std::vector<std::vector>>>.
 */
 
-// To compile use ``g++ -std=c++11 Problem5.cpp -Wall``
-
 #include "Problem5.hpp"
 
 std::shared_ptr<Problem5::Solution> Problem5::savePrincess(const ThreeDimCharArray& grid)
 {
   auto princePosition = getFigurePosition(Figure::PRINCE, grid);
-  auto princessPosition = getFigurePosition(Figure::PRINCESS, grid);
   // assume princess is always below prince
   auto solution = std::make_shared<Solution>();
   State state { princePosition };
@@ -51,9 +48,9 @@ std::shared_ptr<Problem5::Solution> Problem5::savePrincess(const ThreeDimCharArr
     // base cases; if the position is out of range or at column then reject;
     // if the position matches the princess', the return;
     // otherwise at the empty area, safely proceed.
-    if (0 > level || grid.size() == level ||
-        0 > x || grid[0].size() == x      ||
-        0 > y || grid[0][0].size() == y   ||
+    if (0 > level || static_cast<int32_t>(grid.size())       == level ||
+        0 > x     || static_cast<int32_t>(grid[0].size())    == x     ||
+        0 > y     || static_cast<int32_t>(grid[0][0].size()) == y     ||
         Figure::COLUMN == grid[level][x][y])
     {
       rejected.push_back(s);
